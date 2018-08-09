@@ -1,0 +1,6 @@
+.thumbnail {
+  display: inline-block;
+  max-height: 200px;
+  border: 10px solid #fff;
+  margin: 5px;
+}
