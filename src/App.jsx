@@ -17,7 +17,7 @@ const config = {
 let ts = new Date().getTime().toString();
 let hash = md5(ts + config.privateKey + config.publicKey);
 
-const requestURL = `${config.protocol}://${config.domain}:${config.port}/v1/public/characters?limit=50&ts=${ts}&apikey=${config.publicKey}&hash=${hash}`;
+const requestURL = `${config.protocol}://${config.domain}:${config.port}/v1/public/characters?limit=100&ts=${ts}&apikey=${config.publicKey}&hash=${hash}`;
 
 class App extends Component {
   constructor(props) {
@@ -50,7 +50,10 @@ class App extends Component {
       console.log({heroes});
       let thumbs = [];
       heroes.forEach(hero => {
-        if(hero.thumbnail.path !== 'http://i.annihil.us/u/prod/marvel/i/mg/b/40/image_not_available') thumbs.push(`${hero.thumbnail.path}.${hero.thumbnail.extension}`);
+        thumbs.push(`${hero.thumbnail.path}/standard_xlarge.${hero.thumbnail.extension}`);
+      });
+      thumbs = thumbs.filter(thumb => {
+        return (thumb !== `http://i.annihil.us/u/prod/marvel/i/mg/b/40/image_not_available/standard_xlarge.jpg` && thumb !== `http://i.annihil.us/u/prod/marvel/i/mg/f/60/4c002e0305708/standard_xlarge.gif`);
       });
       this.setState({
         thumbs: thumbs,
