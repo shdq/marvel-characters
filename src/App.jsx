@@ -40,38 +40,40 @@ class App extends Component {
           resolve(data.data.results);
         })
       })
-      .catch(error => console.log(`Fetch error: ${error}`))
+      .catch(error => console.error(`Fetch error: ${error}`))
     });
   }
 
   componentDidMount() {
     this.fetchCaracters(requestURL)
-  .then(heroes => {
-    console.log({heroes});
-    let thumbs = [];
-    heroes.forEach(hero => {
-      if(hero.thumbnail.path !== 'http://i.annihil.us/u/prod/marvel/i/mg/b/40/image_not_available') thumbs.push(`${hero.thumbnail.path}.${hero.thumbnail.extension}`);
+    .then(heroes => {
+      console.log({heroes});
+      let thumbs = [];
+      heroes.forEach(hero => {
+        if(hero.thumbnail.path !== 'http://i.annihil.us/u/prod/marvel/i/mg/b/40/image_not_available') thumbs.push(`${hero.thumbnail.path}.${hero.thumbnail.extension}`);
+      });
+      this.setState({
+        thumbs: thumbs,
+        fetching : false
+      })
     });
-    this.setState({
-      thumbs: thumbs,
-      fetching : false
-    })
-  });
   }
   
   render() {
     const { fetching, thumbs } = this.state;
 
-    return fetching ? ( <p>Загрузка...</p> ) : (
+    return (
       <div className="App">
       <h1 className="title">MARVEL Caracters Library</h1>
-      <div className="scrolling-line">
-        {
-          thumbs.map(thumb => {
-            return <Thumbnail src={thumb} alt='' />
-          })
-        }
-      </div>
+      { fetching ? ( <p>Loading...</p> ) : 
+        <div className="scrolling-line">
+          {
+            thumbs.map(thumb => {
+              return <Thumbnail src={thumb} alt='' />
+            })
+          }
+        </div>
+      }
       </div>
     );
   }
