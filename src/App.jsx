@@ -68,6 +68,11 @@ class App extends Component {
     return (
       <div className="App">
       <h1 className="title">MARVEL Caracters Library</h1>
+      <div className="caracter">
+        <img src="http://i.annihil.us/u/prod/marvel/i/mg/f/60/4c002e0305708.gif" alt="No caracters image" />
+        <h2>Caracter's name</h2>
+        <p>Caracter's description</p>
+      </div>
       { fetching ? ( <p>Loading...</p> ) : 
         <div className="scrolling-line">
           {
