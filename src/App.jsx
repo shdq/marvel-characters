@@ -23,7 +23,7 @@ class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      thumbs: [],
+      characters: [],
       fetching : true
     }
   }
@@ -48,36 +48,40 @@ class App extends Component {
     this.fetchCaracters(requestURL)
     .then(heroes => {
       console.log({heroes});
-      let thumbs = [];
+      let characters = [];
       heroes.forEach(hero => {
-        thumbs.push(`${hero.thumbnail.path}/standard_xlarge.${hero.thumbnail.extension}`);
+        characters.push({
+          id: hero.id,
+          name: hero.name,
+          thumb: `${hero.thumbnail.path}/standard_xlarge.${hero.thumbnail.extension}`
+        });
       });
-      thumbs = thumbs.filter(thumb => {
-        return (thumb !== `http://i.annihil.us/u/prod/marvel/i/mg/b/40/image_not_available/standard_xlarge.jpg` && thumb !== `http://i.annihil.us/u/prod/marvel/i/mg/f/60/4c002e0305708/standard_xlarge.gif`);
-      });
+      // thumbs = thumbs.filter(thumb => {
+      //   return (thumb !== `http://i.annihil.us/u/prod/marvel/i/mg/b/40/image_not_available/standard_xlarge.jpg` && thumb !== `http://i.annihil.us/u/prod/marvel/i/mg/f/60/4c002e0305708/standard_xlarge.gif`);
+      // });
       this.setState({
-        thumbs: thumbs,
+        characters: characters,
         fetching : false
       })
     });
   }
   
   render() {
-    const { fetching, thumbs } = this.state;
+    const { fetching, characters } = this.state;
 
     return (
       <div className="App">
       <h1 className="title">MARVEL Caracters Library</h1>
       <div className="caracter">
-        <img src="http://i.annihil.us/u/prod/marvel/i/mg/f/60/4c002e0305708.gif" alt="No caracters image" />
-        <h2>Caracter's name</h2>
-        <p>Caracter's description</p>
+        <img className="caracter__image" src="http://i.annihil.us/u/prod/marvel/i/mg/f/60/4c002e0305708.gif" alt="No caracter selected" />
+        <h2 className="caracter__name">Caracter's name</h2>
+        <p className="caracter__description">Caracter's description</p>
       </div>
       { fetching ? ( <p>Loading...</p> ) : 
         <div className="scrolling-line">
           {
-            thumbs.map(thumb => {
-              return <Thumbnail src={thumb} alt='' />
+            characters.map(character => {
+              return <Thumbnail src={character.thumb} key={character.id} name={character.name} />
             })
           }
         </div>

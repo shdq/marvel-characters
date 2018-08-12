@@ -4,7 +4,7 @@ import './Thumbnail.css';
 
 function Thumbnail(props) {
   return (
-    <img src={props.src} className="thumbnail" />
+    <img className="thumbnail" src={props.src} alt={props.name} />
   );
 }
 
