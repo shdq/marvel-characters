@@ -56,9 +56,9 @@ class App extends Component {
           thumb: `${hero.thumbnail.path}/standard_xlarge.${hero.thumbnail.extension}`
         });
       });
-      // thumbs = thumbs.filter(thumb => {
-      //   return (thumb !== `http://i.annihil.us/u/prod/marvel/i/mg/b/40/image_not_available/standard_xlarge.jpg` && thumb !== `http://i.annihil.us/u/prod/marvel/i/mg/f/60/4c002e0305708/standard_xlarge.gif`);
-      // });
+      characters = characters.filter(caracter => {
+        return (caracter.thumb !== `http://i.annihil.us/u/prod/marvel/i/mg/b/40/image_not_available/standard_xlarge.jpg` && caracter.thumb !== `http://i.annihil.us/u/prod/marvel/i/mg/f/60/4c002e0305708/standard_xlarge.gif`);
+      });
       this.setState({
         characters: characters,
         fetching : false
