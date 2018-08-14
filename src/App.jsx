@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import './App.css';
 
 import Thumbnail from './components/Thumbnail';
+import Character from './components/Character';
 
 import md5 from 'md5';
 
@@ -24,7 +25,12 @@ class App extends Component {
     super(props);
     this.state = {
       characters: [],
-      fetching : true
+      fetching: true,
+      selected: {
+        name: `Character's name`,
+        description: `No character selected`,
+        thumb: `http://i.annihil.us/u/prod/marvel/i/mg/f/60/4c002e0305708.gif`
+      }
     }
   }
   
@@ -65,18 +71,14 @@ class App extends Component {
       })
     });
   }
-  
+
   render() {
-    const { fetching, characters } = this.state;
+    const { fetching, characters, selected } = this.state;
 
     return (
       <div className="App">
       <h1 className="title">MARVEL Caracters Library</h1>
-      <div className="caracter">
-        <img className="caracter__image" src="http://i.annihil.us/u/prod/marvel/i/mg/f/60/4c002e0305708.gif" alt="No caracter selected" />
-        <h2 className="caracter__name">Caracter's name</h2>
-        <p className="caracter__description">Caracter's description</p>
-      </div>
+      <Character name={selected.name} image={selected.thumb} desc={selected.description} />
       { fetching ? ( <p>Loading...</p> ) : 
         <div className="scrolling-line">
           {
