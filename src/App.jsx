@@ -27,11 +27,14 @@ class App extends Component {
       characters: [],
       fetching: true,
       selected: {
+        id: 0,
         name: `Character's name`,
         description: `No character selected`,
-        thumb: `http://i.annihil.us/u/prod/marvel/i/mg/f/60/4c002e0305708.gif`
+        path: `http://i.annihil.us/u/prod/marvel/i/mg/f/60/4c002e0305708`,
+        extension: `gif`
       }
     }
+    this.handleClick = this.handleClick.bind(this);
   }
   
   fetchCaracters = url => {
@@ -59,17 +62,32 @@ class App extends Component {
         characters.push({
           id: hero.id,
           name: hero.name,
-          thumb: `${hero.thumbnail.path}/standard_xlarge.${hero.thumbnail.extension}`
+          description: hero.description,
+          path: hero.thumbnail.path,
+          extension: hero.thumbnail.extension
         });
       });
       characters = characters.filter(caracter => {
-        return (caracter.thumb !== `http://i.annihil.us/u/prod/marvel/i/mg/b/40/image_not_available/standard_xlarge.jpg` && caracter.thumb !== `http://i.annihil.us/u/prod/marvel/i/mg/f/60/4c002e0305708/standard_xlarge.gif`);
+        return (caracter.path !== `http://i.annihil.us/u/prod/marvel/i/mg/b/40/image_not_available` && caracter.path !== `http://i.annihil.us/u/prod/marvel/i/mg/f/60/4c002e0305708`);
       });
       this.setState({
         characters: characters,
         fetching : false
       })
     });
+  }
+
+  handleClick(character) {
+    console.log('Click');
+    this.setState({
+      selected: {
+        id: character.id,
+        name: character.name,
+        description: character.description,
+        path: `${character.path}/detail`,
+        extension: character.extension
+      }
+    })
   }
 
   render() {
@@ -79,8 +97,8 @@ class App extends Component {
       <div className="App">
       <div><img className="logo" src="assets/images/MarvelLogo.svg" alt="Marvel logo" /></div>
       <h1 className="title">Characters Library</h1>
-      <Character name={selected.name} image={selected.thumb} desc={selected.description} />
-      { fetching ? ( <p>Loading...</p> ) : <Thumbnail data={characters} /> }
+      <Character name={selected.name} image={`${selected.path}.${selected.extension}`} desc={selected.description} />
+      { fetching ? ( <p>Loading...</p> ) : <Thumbnail data={characters} handleClick={this.handleClick} /> }
       </div>
     );
   }

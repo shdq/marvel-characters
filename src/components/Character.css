@@ -1,4 +1,5 @@
 .caracter__image {
+  max-height: 500px;
   border: 10px solid #fff;
 }
 

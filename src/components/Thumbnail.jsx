@@ -8,7 +8,7 @@ class Thumbnail extends React.Component {
       <div className="scrolling-line">
         {
           this.props.data.map(character => {
-            return <img className="thumbnail" src={character.thumb} alt={character.name} key={character.id.toString()} />
+            return <img className="thumbnail" src={`${character.path}/standard_xlarge.${character.extension}`} alt={character.name} key={character.id.toString()} onClick={this.props.handleClick.bind(this, character)} />
           })
         }
       </div>
@@ -17,3 +17,4 @@ class Thumbnail extends React.Component {
 }
 
 export default Thumbnail;
+
