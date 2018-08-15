@@ -2,10 +2,18 @@ import React from 'react';
 
 import './Thumbnail.css';
 
-function Thumbnail(props) {
-  return (
-    <img className="thumbnail" src={props.src} alt={props.name} />
-  );
+class Thumbnail extends React.Component {
+  render() {
+    return (
+      <div className="scrolling-line">
+        {
+          this.props.data.map(character => {
+            return <img className="thumbnail" src={character.thumb} alt={character.name} key={character.id.toString()} />
+          })
+        }
+      </div>
+    );
+  }
 }
 
 export default Thumbnail;

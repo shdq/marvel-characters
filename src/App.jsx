@@ -77,17 +77,10 @@ class App extends Component {
 
     return (
       <div className="App">
-      <h1 className="title">MARVEL Caracters Library</h1>
+      <div><img className="logo" src="assets/images/MarvelLogo.svg" alt="Marvel logo" /></div>
+      <h1 className="title">Characters Library</h1>
       <Character name={selected.name} image={selected.thumb} desc={selected.description} />
-      { fetching ? ( <p>Loading...</p> ) : 
-        <div className="scrolling-line">
-          {
-            characters.map(character => {
-              return <Thumbnail src={character.thumb} key={character.id} name={character.name} />
-            })
-          }
-        </div>
-      }
+      { fetching ? ( <p>Loading...</p> ) : <Thumbnail data={characters} /> }
       </div>
     );
   }
