@@ -31,13 +31,14 @@ class App extends Component {
         name: `Character's name`,
         description: `No character selected`,
         path: `http://i.annihil.us/u/prod/marvel/i/mg/f/60/4c002e0305708`,
-        extension: `gif`
+        extension: `gif`,
+        urls: []
       }
     }
     this.handleClick = this.handleClick.bind(this);
   }
   
-  fetchCaracters = url => {
+  fetchCharacters = url => {
     return new Promise((resolve, reject) => {
       fetch(url)
       .then(response => {
@@ -46,6 +47,7 @@ class App extends Component {
         }
         response.json()
         .then(data => {
+          console.log(data);
           resolve(data.data.results);
         })
       })
@@ -54,21 +56,10 @@ class App extends Component {
   }
 
   componentDidMount() {
-    this.fetchCaracters(requestURL)
-    .then(heroes => {
-      console.log({heroes});
-      let characters = [];
-      heroes.forEach(hero => {
-        characters.push({
-          id: hero.id,
-          name: hero.name,
-          description: hero.description,
-          path: hero.thumbnail.path,
-          extension: hero.thumbnail.extension
-        });
-      });
-      characters = characters.filter(caracter => {
-        return (caracter.path !== `http://i.annihil.us/u/prod/marvel/i/mg/b/40/image_not_available` && caracter.path !== `http://i.annihil.us/u/prod/marvel/i/mg/f/60/4c002e0305708`);
+    this.fetchCharacters(requestURL)
+    .then(characters => {
+      characters = characters.filter(character => {
+        return (character.thumbnail.path !== `http://i.annihil.us/u/prod/marvel/i/mg/b/40/image_not_available` && character.thumbnail.path !== `http://i.annihil.us/u/prod/marvel/i/mg/f/60/4c002e0305708`);
       });
       this.setState({
         characters: characters,
@@ -78,14 +69,14 @@ class App extends Component {
   }
 
   handleClick(character) {
-    console.log('Click');
     this.setState({
       selected: {
         id: character.id,
         name: character.name,
         description: character.description,
-        path: `${character.path}/detail`,
-        extension: character.extension
+        path: `${character.thumbnail.path}/detail`,
+        extension: character.thumbnail.extension,
+        urls: character.urls
       }
     })
   }
@@ -97,7 +88,7 @@ class App extends Component {
       <div className="App">
       <div><img className="logo" src="assets/images/MarvelLogo.svg" alt="Marvel logo" /></div>
       <h1 className="title">Characters Library</h1>
-      <Character name={selected.name} image={`${selected.path}.${selected.extension}`} desc={selected.description} />
+      <Character name={selected.name} image={`${selected.path}.${selected.extension}`} desc={selected.description} urls={selected.urls} />
       { fetching ? ( <p>Loading...</p> ) : <Thumbnail data={characters} handleClick={this.handleClick} /> }
       </div>
     );

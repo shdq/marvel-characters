@@ -1,18 +1,29 @@
 .character {
   text-align: center;
+  margin-bottom: 120px;
 }
 
-.caracter__image {
+.character__image {
   max-width: 90%;
   border: 10px solid #fff;
 }
 
-.caracter__name {
+.character__name {
   color: #fff;
 }
 
-.caracter__description {
+.character__description {
   display: inline-block;
   color: #fff;
   max-width: 700px;
+}
+
+.character__urls-list {
+  list-style: none;
+  display: block;
+  padding-bottom: 20px;
+}
+
+.link {
+  color: #fff;
 }
