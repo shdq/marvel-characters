@@ -8,12 +8,6 @@ body {
   text-align: center;
 }
 
-.scrolling-line {
-  overflow-x: scroll;
-  overflow-y: hidden;
-  white-space: nowrap;
-}
-
 .title {
   color: #fff;
   font-size: 24pt;

@@ -1,5 +1,9 @@
+.character {
+  text-align: center;
+}
+
 .caracter__image {
-  max-height: 500px;
+  max-width: 90%;
   border: 10px solid #fff;
 }
 
@@ -8,5 +12,7 @@
 }
 
 .caracter__description {
+  display: inline-block;
   color: #fff;
+  max-width: 700px;
 }
