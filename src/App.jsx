@@ -61,9 +61,19 @@ class App extends Component {
       characters = characters.filter(character => {
         return (character.thumbnail.path !== `http://i.annihil.us/u/prod/marvel/i/mg/b/40/image_not_available` && character.thumbnail.path !== `http://i.annihil.us/u/prod/marvel/i/mg/f/60/4c002e0305708`);
       });
+      const randomIndex = Math.floor(Math.random() * characters.length);
+      const randonCharacter = characters[randomIndex];
       this.setState({
         characters: characters,
-        fetching : false
+        fetching : false,
+        selected: {
+          id: randonCharacter.id,
+          name: randonCharacter.name,
+          description: randonCharacter.description,
+          path: `${randonCharacter.thumbnail.path}/detail`,
+          extension: randonCharacter.thumbnail.extension,
+          urls: randonCharacter.urls
+        }
       })
     });
   }
