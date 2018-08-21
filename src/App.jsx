@@ -38,27 +38,21 @@ class App extends Component {
     this.handleClick = this.handleClick.bind(this);
   }
   
-  fetchCharacters = url => {
-    return new Promise((resolve, reject) => {
-      fetch(url)
+  fetchData = url => {
+    return fetch(url)
       .then(response => {
         if(response.status !== 200 ) {
-          reject(Error(`Looks like there was a problem. Status Code: ${response.status}`));
+          Promise.reject(Error(`Looks like there was a problem. Status Code: ${response.status}`));
         }
-        response.json()
-        .then(data => {
-          console.log(data);
-          resolve(data.data.results);
-        })
+        return response.json()
       })
       .catch(error => console.error(`Fetch error: ${error}`))
-    });
   }
 
   componentDidMount() {
-    this.fetchCharacters(requestURL)
+    this.fetchData(requestURL)
     .then(characters => {
-      characters = characters.filter(character => {
+      characters = characters.data.results.filter(character => {
         return (character.thumbnail.path !== `http://i.annihil.us/u/prod/marvel/i/mg/b/40/image_not_available` && character.thumbnail.path !== `http://i.annihil.us/u/prod/marvel/i/mg/f/60/4c002e0305708`);
       });
       const randomIndex = Math.floor(Math.random() * characters.length);
