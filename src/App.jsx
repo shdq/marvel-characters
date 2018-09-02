@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import './App.css';
 
+import Loader from 'react-loaders'
+
 import Thumbnail from './components/Thumbnail';
 import Character from './components/Character';
 
@@ -32,7 +34,8 @@ class App extends Component {
         description: `No character selected`,
         path: `http://i.annihil.us/u/prod/marvel/i/mg/f/60/4c002e0305708`,
         extension: `gif`,
-        urls: []
+        urls: [],
+        loader: true
       }
     }
     this.handleClick = this.handleClick.bind(this);
@@ -56,17 +59,17 @@ class App extends Component {
         return (character.thumbnail.path !== `http://i.annihil.us/u/prod/marvel/i/mg/b/40/image_not_available` && character.thumbnail.path !== `http://i.annihil.us/u/prod/marvel/i/mg/f/60/4c002e0305708`);
       });
       const randomIndex = Math.floor(Math.random() * characters.length);
-      const randonCharacter = characters[randomIndex];
+      const randomCharacter = characters[randomIndex];
       this.setState({
         characters: characters,
         fetching : false,
         selected: {
-          id: randonCharacter.id,
-          name: randonCharacter.name,
-          description: randonCharacter.description,
-          path: `${randonCharacter.thumbnail.path}/detail`,
-          extension: randonCharacter.thumbnail.extension,
-          urls: randonCharacter.urls
+          id: randomCharacter.id,
+          name: randomCharacter.name,
+          description: randomCharacter.description,
+          path: `${randomCharacter.thumbnail.path}/detail`,
+          extension: randomCharacter.thumbnail.extension,
+          urls: randomCharacter.urls
         }
       })
     });
@@ -92,7 +95,7 @@ class App extends Component {
       <div className="App">
       <div><img className="logo" src="assets/images/MarvelLogo.svg" alt="Marvel logo" /></div>
       <h1 className="title">Characters Library</h1>
-      <Character name={selected.name} image={`${selected.path}.${selected.extension}`} desc={selected.description} urls={selected.urls} />
+      { selected.loader ? ( <Loader type="ball-scale" /> ) : <Character name={selected.name} image={`${selected.path}.${selected.extension}`} desc={selected.description} urls={selected.urls} /> }
       { fetching ? ( <p>Loading...</p> ) : <Thumbnail data={characters} handleClick={this.handleClick} /> }
       </div>
     );
