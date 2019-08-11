@@ -16,6 +16,7 @@
   display: inline-block;
   color: #fff;
   max-width: 700px;
+  padding: 0 10px;
 }
 
 .character__urls-list {

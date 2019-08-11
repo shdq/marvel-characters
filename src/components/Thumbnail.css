@@ -9,6 +9,10 @@
   padding: 5px 0;
 }
 
+.scrolling-line::-webkit-scrollbar {
+  display: none;
+}
+
 .thumbnail {
   display: inline-block;
   min-height: 100px;
