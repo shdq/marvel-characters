@@ -4,8 +4,8 @@ import "./Character.css";
 
 import Image from "./Image";
 
-const Character = props => {
-  const detailsUrl = props.urls
+const Character = ({ urls, name, desc, image }) => {
+  const detailsUrl = urls
     .filter(link => link.type === "detail")
     .map((link, i) => {
       return (
@@ -16,16 +16,16 @@ const Character = props => {
             rel="noopener noreferrer"
             target="_blank"
           >
-            {props.name} on marvel.com
+            {name} on marvel.com
           </a>
         </li>
       );
     });
   return (
     <div className="character">
-      <Image imageClass="character__image" src={props.image} alt={props.name} />
-      <h2 className="character__name">{props.name}</h2>
-      <p className="character__description">{props.desc}</p>
+      <Image imageClass="character__image" src={image} alt={name} />
+      <h2 className="character__name">{name}</h2>
+      <p className="character__description">{desc}</p>
       <ul className="character__urls-list">{detailsUrl}</ul>
     </div>
   );
