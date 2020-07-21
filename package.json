@@ -11,10 +11,10 @@
     "react": "^16.6.0",
     "react-dom": "^16.6.0",
     "react-loaders": "^3.0.1",
-    "react-scripts": "^3.0.1"
+    "react-scripts": "^3.4.1"
   },
   "devDependencies": {
-    "lodash": "^4.17.15"
+    "lodash": "^4.17.19"
   },
   "scripts": {
     "start": "react-scripts start",
